@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TG 群管机器人 · 功能介绍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-soft: #e8f4fc;
+      --surface: #ffffff;
+      --text: #1a2b3c;
+      --text-soft: #5a6b7d;
+      --accent: #0088cc;
+      --accent-light: #e3f4fc;
+      --accent-dark: #006699;
+      --global: #0ea5e9;
+      --profile: #10b981;
+      --gold: #f59e0b;
+      --shadow: 0 4px 24px rgba(26, 43, 60, 0.08);
+      --shadow-hover: 0 12px 40px rgba(0, 136, 204, 0.15);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* 顶部渐变装饰 */
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 420px;
+      background: linear-gradient(145deg, #0088cc 0%, #00a8e8 45%, #5bc0eb 100%);
+      border-radius: 0 0 48px 48px;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      top: -80px;
+      right: -60px;
+    }
+
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      bottom: 40px;
+      left: 10%;
+    }
+
+    .wrap {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px 64px;
+    }
+
+    /* 页头 */
+    header {
+      position: relative;
+      padding: 56px 0 40px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+
+    header h1 {
+      font-size: clamp(1.75rem, 5vw, 2.35rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    header .lead {
+      font-size: 1.05rem;
+      opacity: 0.95;
+      max-width: 520px;
+      margin: 0 auto 28px;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .hero-btns a {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-btns .primary {
+      background: #fff;
+      color: var(--accent-dark);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-btns .ghost {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-btns a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 导航 */
+    nav {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      margin: -20px 0 32px;
+    }
+
+    nav .inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    nav a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* 搜索 */
+    .search-wrap {
+      margin-bottom: 36px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin: 0 auto;
+      padding: 14px 20px 14px 48px;
+      border: none;
+      border-radius: 999px;
+      background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='%235a6b7d' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.1a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E") 18px center no-repeat;
+      font-size: 15px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .search-wrap input:focus {
+      box-shadow: 0 0 0 3px var(--accent-light), var(--shadow);
+    }
+
+    .search-wrap input::placeholder { color: #9ca8b8; }
+
+    /* 区块标题 */
+    section { margin-bottom: 48px; }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: var(--text-soft);
+      font-size: 15px;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    .badge-global { background: #e0f2fe; color: #0369a1; }
+    .badge-profile { background: #d1fae5; color: #047857; }
+
+    /* 说明卡片 */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--accent);
+    }
+
+    .step-card:nth-child(2) { border-top-color: var(--profile); }
+    .step-card:nth-child(3) { border-top-color: var(--gold); }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .step-card:nth-child(2) .step-num { background: #d1fae5; color: #047857; }
+    .step-card:nth-child(3) .step-num { background: #fef3c7; color: #b45309; }
+
+    .step-card h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .step-card p {
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    /* 指令区 */
+    .cmd-section {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .cmd-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 20px 0 12px;
+    }
+
+    .cmd-group-title:first-child { margin-top: 0; }
+
+    .cmd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .cmd-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+
+    .cmd-item:hover { background: var(--accent-light); }
+
+    .cmd-cmd {
+      flex-shrink: 0;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--accent-dark);
+      min-width: 108px;
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    }
+
+    .cmd-alias {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-soft);
+      margin-top: 2px;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    .cmd-body strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .cmd-body span {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .cmd-tag {
+      display: inline-block;
+      font-size: 11px;
+      color: var(--text-soft);
+      background: rgba(0, 0, 0, 0.05);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    /* 功能卡片 */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(0, 136, 204, 0.15);
+    }
+
+    .feature-card.hidden { display: none; }
+
+    .feature-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .feature-card.global .feature-icon { background: #e0f2fe; }
+    .feature-card.profile .feature-icon { background: #d1fae5; }
+    .feature-card.extra .feature-icon { background: #fef3c7; }
+
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .feature-card > p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .feature-card ul {
+      list-style: none;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .feature-card ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    .feature-card ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--profile);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    /* 页脚 */
+    footer {
+      text-align: center;
+      padding: 40px 20px 0;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    footer p { margin-bottom: 6px; }
+
+    @media (max-width: 600px) {
+      .hero-bg { border-radius: 0 0 32px 32px; height: 380px; }
+      header { padding: 40px 0 32px; }
+      .cmd-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      nav .inner { border-radius: var(--radius); }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-bg" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="logo" aria-hidden="true">🤖</div>
+      <h1>TG 群管机器人</h1>
+      <p class="lead">帮您在 Telegram 群组与频道里自动迎宾、防广告、做活动、统计发言——私信机器人即可配置，无需技术背景。</p>
+      <div class="hero-btns">
+        <a class="primary" href="#start">快速上手</a>
+        <a class="ghost" href="#features">浏览全部功能</a>
+      </div>
+    </header>
+
+    <nav aria-label="页面导航">
+      <div class="inner">
+        <a href="#start">快速上手</a>
+        <a href="#commands">常用指令</a>
+        <a href="#global">全群通用</a>
+        <a href="#profile">分组设置</a>
+        <a href="#more">更多能力</a>
+      </div>
+    </nav>
+
+    <div class="search-wrap">
+      <input type="search" id="search" placeholder="搜索功能，例如：签到、抽奖、夜间…" autocomplete="off" />
+    </div>
+
+    <section id="start">
+      <div class="section-title">
+        <h2>三步开始使用</h2>
+        <p>把机器人请进群组并设为管理员后，按下面步骤即可完成基础配置。</p>
+      </div>
+      <div class="steps">
+        <article class="step-card">
+          <div class="step-num">1</div>
+          <h3>私信打开设置</h3>
+          <p>在 Telegram 里找到您的机器人，发送「开始」或点菜单里的开始按钮，再发送「后台设置」进入管理界面。</p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">2</div>
+          <h3>选择配置方式</h3>
+          <p><strong>全群通用</strong>：一次设置，对名下多个群/频道生效（客服、验群、群发等）。<br /><strong>分组设置</strong>：不同业务建不同方案，分别绑定各自的群组。</p>
+        </article>
+        <article class="step-card">
+          <div class="step-num">3</div>
+          <h3>绑定群组</h3>
+          <p>在「分组设置」里复制绑定码，到目标群或频道发送即可完成关联。也可通过「克隆」功能把同款机器人部署到您自己的账号下。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="commands">
+      <div class="section-title">
+        <h2>常用指令</h2>
+        <p>以 <strong>/</strong> 开头的斜杠快捷指令可直接输入，也可在输入框旁点「菜单」选择；多数功能同时支持中文关键词（如「签到」）。</p>
+      </div>
+      <div class="cmd-section">
+        <p class="cmd-group-title">私信 · 管理</p>
+        <div class="cmd-grid">
+          <div class="cmd-item">
+            <span class="cmd-cmd">/start<span class="cmd-alias">同「开始」</span></span>
+            <div class="cmd-body">
+              <strong>打开机器人</strong>
+              <span>查看欢迎页与功能入口</span>
+              <span class="cmd-tag">仅私信</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/settings<span class="cmd-alias">同「后台设置」</span></span>
+            <div class="cmd-body">
+              <strong>进入管理后台</strong>
+              <span>开关功能、编辑文案与绑定群组</span>
+              <span class="cmd-tag">仅私信</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/sz</span>
+            <div class="cmd-body">
+              <strong>后台快捷菜单</strong>
+              <span>月租、权限等入口，与 /settings 类似</span>
+              <span class="cmd-tag">仅私信</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/ht</span>
+            <div class="cmd-body">
+              <strong>超级管理员菜单</strong>
+              <span>平台级管理功能</span>
+              <span class="cmd-tag">仅私信 · 超管</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/cd</span>
+            <div class="cmd-body">
+              <strong>用户菜单</strong>
+              <span>常用功能快捷入口</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/clone<span class="cmd-alias">同「克隆」</span></span>
+            <div class="cmd-body">
+              <strong>复制同款机器人</strong>
+              <span>部署到您自己的机器人账号</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/id<span class="cmd-alias">同「查编号」</span></span>
+            <div class="cmd-body">
+              <strong>获取用户或群组编号</strong>
+              <span>用于绑定、名单与后台查询</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/hy</span>
+            <div class="cmd-body">
+              <strong>查询会员状态</strong>
+              <span>查看机器人服务是否已开通/到期</span>
+              <span class="cmd-tag">可加入菜单</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/cancel<span class="cmd-alias">同「取消」</span></span>
+            <div class="cmd-body">
+              <strong>取消当前输入</strong>
+              <span>正在填写设置内容时可随时退出</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="cmd-group-title">群组 · 互动</p>
+        <div class="cmd-grid">
+          <div class="cmd-item">
+            <span class="cmd-cmd">/rank</span>
+            <div class="cmd-body">
+              <strong>查看发言排行榜</strong>
+              <span>如 <code>/rank 7</code> 近 7 天；可写日期范围，需先开启统计</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/rank 30</span>
+            <div class="cmd-body">
+              <strong>近 30 天发言榜</strong>
+              <span>也可发「发言榜」「排行榜」；菜单里常写作 /rank30</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/stat</span>
+            <div class="cmd-body">
+              <strong>查看发言统计</strong>
+              <span>群内数据概览，需开启数据统计</span>
+              <span class="cmd-tag">可加入菜单</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/sign<span class="cmd-alias">同「签到」</span></span>
+            <div class="cmd-body">
+              <strong>每日签到</strong>
+              <span>获得积分</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/points<span class="cmd-alias">同「积分」</span></span>
+            <div class="cmd-body">
+              <strong>查询我的积分</strong>
+              <span>含当前称号与签到次数；亦可用 /cxjf</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/signrank<span class="cmd-alias">同「积分榜」</span></span>
+            <div class="cmd-body">
+              <strong>群内积分排名</strong>
+              <span>按群主配置的榜单样式展示</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/verify<span class="cmd-alias">同「验群」</span></span>
+            <div class="cmd-body">
+              <strong>验证本群真伪</strong>
+              <span>对照官方登记的真群名单</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/fffy<span class="cmd-alias">同「付费查询」</span></span>
+            <div class="cmd-body">
+              <strong>付费发言到期时间</strong>
+              <span>开启付费发言的群可用</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="cmd-group-title">群组 · 管理（需群管理员）</p>
+        <div class="cmd-grid">
+          <div class="cmd-item">
+            <span class="cmd-cmd">/muteuser</span>
+            <div class="cmd-body">
+              <strong>禁言指定用户</strong>
+              <span>回复对方消息后发送 <code>/muteuser 分钟</code>，0 为永久</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/mute<span class="cmd-alias">同「下课」</span></span>
+            <div class="cmd-body">
+              <strong>临时关闭群发言</strong>
+              <span>夜间模式下可用全员禁言</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/unmute<span class="cmd-alias">同「上课」</span></span>
+            <div class="cmd-body">
+              <strong>恢复群发言</strong>
+              <span>解除全员禁言</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/add<span class="cmd-alias">同「加按钮」</span></span>
+            <div class="cmd-body">
+              <strong>给消息加推广按钮</strong>
+              <span>回复某条消息后发送，需为授权操作者</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/kick</span>
+            <div class="cmd-body">
+              <strong>踢出用户</strong>
+              <span>回复目标用户消息后使用</span>
+              <span class="cmd-tag">可加入菜单</span>
+            </div>
+          </div>
+          <div class="cmd-item">
+            <span class="cmd-cmd">/exception</span>
+            <div class="cmd-body">
+              <strong>添加例外名单</strong>
+              <span>将用户加入白名单，免广告/违禁词等限制</span>
+              <span class="cmd-tag">可加入菜单</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="cmd-group-title">说明</p>
+        <p style="font-size: 14px; color: var(--text-soft); line-height: 1.7;">
+          群主可在「欢迎与菜单 → 显示菜单指令」中自定义 Telegram 输入框旁的菜单项；后台「关键词回复」里以 <code>/</code> 开头的规则也会同步为快捷指令。
+          群内 @机器人 时指令名后需带机器人用户名，如 <code>/rank@YourBot</code>。
+        </p>
+      </div>
+    </section>
+
+    <section id="global" class="features-section">
+      <div class="section-title" id="features">
+        <h2>全群通用功能</h2>
+        <p>在「后台设置 → 全群通用」中配置，可一次作用于您选择的全部或部分群组、频道。</p>
+        <div class="badge-row">
+          <span class="badge badge-global">7 项功能</span>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card global" data-keywords="双向客服 私聊 客服">
+          <div class="feature-top">
+            <div class="feature-icon">👨‍🚀</div>
+            <h3>双向客服</h3>
+          </div>
+          <p>用户私聊机器人即可联系真人客服，客服在私信里回复，双方消息经机器人转发。</p>
+          <ul>
+            <li>默认自动回复、人机验证防骚扰</li>
+            <li>对话列表与拉黑管理</li>
+          </ul>
+        </article>
+        <article class="feature-card global" data-keywords="验群 真假群">
+          <div class="feature-top">
+            <div class="feature-icon">✅</div>
+            <h3>验证群组</h3>
+          </div>
+          <p>登记官方真群名单，成员在群内发送「验群」即可查询当前群是否正规。</p>
+        </article>
+        <article class="feature-card global" data-keywords="验客服 客服真假">
+          <div class="feature-top">
+            <div class="feature-icon">🛡️</div>
+            <h3>验证客服</h3>
+          </div>
+          <p>维护官方客服名单，转发一条用户消息给机器人，即可判断是否为真客服。</p>
+        </article>
+        <article class="feature-card global" data-keywords="欢迎 开始 菜单">
+          <div class="feature-top">
+            <div class="feature-icon">🏠</div>
+            <h3>欢迎与菜单</h3>
+          </div>
+          <p>自定义用户点「开始」时看到的介绍、图片与按钮；可控制菜单里显示的快捷指令。</p>
+        </article>
+        <article class="feature-card global" data-keywords="键盘 底部按钮">
+          <div class="feature-top">
+            <div class="feature-icon">⌨️</div>
+            <h3>键盘按钮</h3>
+          </div>
+          <p>在私信或群聊底部显示自定义按钮，一点即可触发您预设的自动回复。</p>
+        </article>
+        <article class="feature-card global" data-keywords="群发 群组 频道">
+          <div class="feature-top">
+            <div class="feature-icon">📢</div>
+            <h3>群发群组</h3>
+          </div>
+          <p>向多个群或频道一次性发送通知，支持定时每天推送、图文与按钮。</p>
+        </article>
+        <article class="feature-card global" data-keywords="群发 用户 广播">
+          <div class="feature-top">
+            <div class="feature-icon">📨</div>
+            <h3>群发用户</h3>
+          </div>
+          <p>给所有使用过机器人的用户私聊群发消息，适合活动通知与公告。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="profile">
+      <div class="section-title">
+        <h2>分组设置功能</h2>
+        <p>适合不同社群单独运营：每套方案绑定自己的群，互不影响。在「后台设置 → 分组设置」中创建并绑定群组。</p>
+        <div class="badge-row">
+          <span class="badge badge-profile">22 项功能</span>
+        </div>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card profile" data-keywords="抽奖 开奖">
+          <div class="feature-top"><div class="feature-icon">🎁</div><h3>发起抽奖</h3></div>
+          <p>在群内发布抽奖，人满自动开奖，可设关注频道、积分、口令、发言次数等参与条件。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="进群验证 表情 频道">
+          <div class="feature-top"><div class="feature-icon">🔐</div><h3>进群验证</h3></div>
+          <p>新人入群先验证：点选正确表情，或关注指定频道后才能发言。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="欢迎语 入群">
+          <div class="feature-top"><div class="feature-icon">👋</div><h3>进群欢迎</h3></div>
+          <p>新成员加入时自动发送欢迎图文，可设自动删除时间。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="签到 积分">
+          <div class="feature-top"><div class="feature-icon">✅</div><h3>签到积分</h3></div>
+          <p>每日签到得积分，支持积分榜展示，管理员可手动加减分。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="称号 等级">
+          <div class="feature-top"><div class="feature-icon">🏅</div><h3>称号系统</h3></div>
+          <p>发言累计积分升级称号，达标可在群内发送升级祝贺。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="统计 进退群 发言">
+          <div class="feature-top"><div class="feature-icon">📊</div><h3>数据统计</h3></div>
+          <p>记录每日进退群、发言量，群内可查发言排行榜。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="夜间 禁言 上课 下课">
+          <div class="feature-top"><div class="feature-icon">🌙</div><h3>夜间模式</h3></div>
+          <p>设定允许发言时段，其余时间自动限制；管理员可临时「上课」「下课」。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="昵称 改名 提醒">
+          <div class="feature-top"><div class="feature-icon">🔔</div><h3>修改提醒</h3></div>
+          <p>成员改昵称或用户名时，在群内提醒并保留最近修改记录。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="垃圾 广告 链接 刷屏">
+          <div class="feature-top"><div class="feature-icon">🚫</div><h3>屏蔽垃圾</h3></div>
+          <p>自动拦截链接、转发、马甲发言、重复刷屏、外文、过长内容等，可警告或踢人。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="违禁词 敏感词">
+          <div class="feature-top"><div class="feature-icon">📛</div><h3>违禁词过滤</h3></div>
+          <p>自定义敏感词库，命中后删除消息或按规则警告、禁言、移出群组。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="自动删除 系统消息">
+          <div class="feature-top"><div class="feature-icon">🧹</div><h3>自动删除</h3></div>
+          <p>清理进群/退群/置顶等系统提示，或定时删除成员消息。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="禁止 图片 视频 语音">
+          <div class="feature-top"><div class="feature-icon">⛔</div><h3>禁止行为</h3></div>
+          <p>禁止发图、视频、语音、会员表情、改消息、英文昵称、引用广告等。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="用户名 邀请 门槛">
+          <div class="feature-top"><div class="feature-icon">💪</div><h3>入群门槛</h3></div>
+          <p>要求设置用户名才能发言；或需邀请足够好友入群后才可发言。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="骗子 黑名单">
+          <div class="feature-top"><div class="feature-icon">⚠️</div><h3>骗子预警</h3></div>
+          <p>登记骗子账号，其在群内发言时自动警告或处理。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="按钮 推广">
+          <div class="feature-top"><div class="feature-icon">🔗</div><h3>自动按钮</h3></div>
+          <p>指定成员发言或频道新帖自动带上推广按钮，也可手动给某条消息加按钮。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="关键词 自动回复">
+          <div class="feature-top"><div class="feature-icon">💬</div><h3>关键词回复</h3></div>
+          <p>用户发送关键词即回复图文与按钮，支持模糊匹配与仅管理员触发。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="空闲 广告位">
+          <div class="feature-top"><div class="feature-icon">📣</div><h3>空闲广告</h3></div>
+          <p>群聊安静一段时间后自动发一条广告或群规，保持信息在底部展示。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="发言 审查 记录">
+          <div class="feature-top"><div class="feature-icon">📝</div><h3>发言记录</h3></div>
+          <p>记录成员发言，可查看今日活跃名单与历史内容，支持禁言、移出（需群管权限）。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="付费 发言">
+          <div class="feature-top"><div class="feature-icon">💰</div><h3>付费发言</h3></div>
+          <p>未付费成员无法发言，用户私信机器人购买包月/季/年套餐后放行。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="进群禁言 转发">
+          <div class="feature-top"><div class="feature-icon">⚙️</div><h3>自动执行</h3></div>
+          <p>新人进群自动禁言一段时间；频道同步内容时可去掉「转发自」来源。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="定时 推送">
+          <div class="feature-top"><div class="feature-icon">⏰</div><h3>定时发送</h3></div>
+          <p>按间隔、每天或每月固定时间，向绑定的群/频道发送图文公告。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="同步 频道">
+          <div class="feature-top"><div class="feature-icon">🔄</div><h3>信息同步</h3></div>
+          <p>监听一个源频道的新内容，自动复制或转发到多个目标群/频道。</p>
+        </article>
+        <article class="feature-card profile" data-keywords="白名单 例外">
+          <div class="feature-top"><div class="feature-icon">👤</div><h3>例外名单</h3></div>
+          <p>指定用户不受广告拦截、违禁词等规则限制，适合管理员与嘉宾。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="more">
+      <div class="section-title">
+        <h2>更多能力</h2>
+        <p>在管理后台全局页面中还可使用以下工具。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card extra" data-keywords="月租 会员">
+          <div class="feature-top"><div class="feature-icon">💳</div><h3>开通月租</h3></div>
+          <p>为机器人开通或续费服务套餐，解锁完整管理能力。</p>
+        </article>
+        <article class="feature-card extra" data-keywords="记录 日志">
+          <div class="feature-top"><div class="feature-icon">📋</div><h3>管理记录</h3></div>
+          <p>查看机器人近期的删消息、禁言、踢人等操作记录，便于追溯。</p>
+        </article>
+        <article class="feature-card extra" data-keywords="权限 管理员">
+          <div class="feature-top"><div class="feature-icon">🔐</div><h3>使用权限</h3></div>
+          <p>设置哪些用户可以打开后台、修改机器人设置，防止误操作。</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p>TG 群管机器人 · 让社群运营更轻松</p>
+      <p>具体能力以您使用的机器人版本为准</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var input = document.getElementById("search");
+      var cards = document.querySelectorAll(".feature-card");
+      input.addEventListener("input", function () {
+        var q = input.value.trim().toLowerCase();
+        cards.forEach(function (card) {
+          var text = (card.textContent + " " + (card.getAttribute("data-keywords") || "")).toLowerCase();
+          card.classList.toggle("hidden", q.length > 0 && text.indexOf(q) === -1);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
