@@ -478,7 +478,7 @@
     <header>
       <div class="logo" aria-hidden="true">🤖</div>
       <h1>TG 群管机器人</h1>
-      <p class="lead">帮您在 Telegram 群组与频道里自动迎宾、防广告、做活动、统计发言——私信机器人即可配置，无需技术背景。</p>
+      <p class="lead">帮您在 Telegram 群组与频道里自动迎宾、防广告、做活动、统计发言——私信机器人发送「后台设置」即可配置，无需技术背景。</p>
       <div class="hero-btns">
         <a class="primary" href="#start">快速上手</a>
         <a class="ghost" href="#features">浏览全部功能</a>
@@ -489,14 +489,14 @@
       <div class="inner">
         <a href="#start">快速上手</a>
         <a href="#commands">常用指令</a>
-        <a href="#global">全群通用</a>
-        <a href="#profile">分组设置</a>
+        <a href="#global">全局功能</a>
+        <a href="#profile">通用功能</a>
         <a href="#more">更多能力</a>
       </div>
     </nav>
 
     <div class="search-wrap">
-      <input type="search" id="search" placeholder="搜索功能，例如：签到、抽奖、夜间…" autocomplete="off" />
+      <input type="search" id="search" placeholder="搜索功能，例如：全局关键词、签到、抽奖…" autocomplete="off" />
     </div>
 
     <section id="start">
@@ -513,12 +513,12 @@
         <article class="step-card">
           <div class="step-num">2</div>
           <h3>选择配置方式</h3>
-          <p><strong>全群通用</strong>：一次设置，对名下多个群/频道生效（客服、验群、群发等）。<br /><strong>分组设置</strong>：不同业务建不同方案，分别绑定各自的群组。</p>
+          <p><strong>全局功能</strong>：在「后台设置 → 全局功能」中配置，一次设置对所选群/频道生效（客服、验群、全局关键词、键盘按钮、群发等）。<br /><strong>通用功能</strong>：在「后台设置 → 通用功能」中为每套方案绑定群组，抽奖、验证、拦截等按方案独立生效。</p>
         </article>
         <article class="step-card">
           <div class="step-num">3</div>
           <h3>绑定群组</h3>
-          <p>在「分组设置」里复制绑定码，到目标群或频道发送即可完成关联。也可通过「克隆」功能把同款机器人部署到您自己的账号下。</p>
+          <p>在「通用功能 → 设置生效群组/频道」中复制绑定码，到目标群或频道发送即可完成关联（群内需为管理员）。也可通过「克隆」将同款机器人部署到您自己的账号下。</p>
         </article>
       </div>
     </section>
@@ -543,16 +543,16 @@
             <span class="cmd-cmd">/settings<span class="cmd-alias">同「后台设置」</span></span>
             <div class="cmd-body">
               <strong>进入管理后台</strong>
-              <span>开关功能、编辑文案与绑定群组</span>
+              <span>选择「全局功能」或「通用功能」进行配置</span>
               <span class="cmd-tag">仅私信</span>
             </div>
           </div>
           <div class="cmd-item">
             <span class="cmd-cmd">/sz</span>
             <div class="cmd-body">
-              <strong>后台快捷菜单</strong>
-              <span>月租、权限等入口，与 /settings 类似</span>
-              <span class="cmd-tag">仅私信</span>
+              <strong>运营快捷菜单</strong>
+              <span>开通月租、通用功能权限开关、代理相关入口</span>
+              <span class="cmd-tag">仅私信 · 需权限</span>
             </div>
           </div>
           <div class="cmd-item">
@@ -566,8 +566,9 @@
           <div class="cmd-item">
             <span class="cmd-cmd">/cd</span>
             <div class="cmd-body">
-              <strong>用户菜单</strong>
-              <span>常用功能快捷入口</span>
+              <strong>切换界面语言</strong>
+              <span>选择机器人回复语言</span>
+              <span class="cmd-tag">仅私信</span>
             </div>
           </div>
           <div class="cmd-item">
@@ -581,14 +582,14 @@
             <span class="cmd-cmd">/id<span class="cmd-alias">同「查编号」</span></span>
             <div class="cmd-body">
               <strong>获取用户或群组编号</strong>
-              <span>用于绑定、名单与后台查询</span>
+              <span>用于绑定、名单与后台查询；回复约 10 秒后自动删除</span>
             </div>
           </div>
           <div class="cmd-item">
             <span class="cmd-cmd">/hy</span>
             <div class="cmd-body">
               <strong>查询会员状态</strong>
-              <span>查看机器人服务是否已开通/到期</span>
+              <span>查看机器人服务是否已开通/到期；需加入菜单或关键词后生效</span>
               <span class="cmd-tag">可加入菜单</span>
             </div>
           </div>
@@ -604,24 +605,17 @@
         <p class="cmd-group-title">群组 · 互动</p>
         <div class="cmd-grid">
           <div class="cmd-item">
-            <span class="cmd-cmd">/rank</span>
+            <span class="cmd-cmd">/rank<span class="cmd-alias">同「发言榜」</span></span>
             <div class="cmd-body">
               <strong>查看发言排行榜</strong>
-              <span>如 <code>/rank 7</code> 近 7 天；可写日期范围，需先开启统计</span>
-            </div>
-          </div>
-          <div class="cmd-item">
-            <span class="cmd-cmd">/rank 30</span>
-            <div class="cmd-body">
-              <strong>近 30 天发言榜</strong>
-              <span>也可发「发言榜」「排行榜」；菜单里常写作 /rank30</span>
+              <span>如 <code>/rank 7</code>、<code>/rank 30</code>（菜单常写作 /rank30）；支持日期范围，需开启统计</span>
             </div>
           </div>
           <div class="cmd-item">
             <span class="cmd-cmd">/stat</span>
             <div class="cmd-body">
               <strong>查看发言统计</strong>
-              <span>群内数据概览，需开启数据统计</span>
+              <span>需在「欢迎菜单」加入菜单项，或在关键词中配置 <code>/stat</code> 规则</span>
               <span class="cmd-tag">可加入菜单</span>
             </div>
           </div>
@@ -633,10 +627,10 @@
             </div>
           </div>
           <div class="cmd-item">
-            <span class="cmd-cmd">/points<span class="cmd-alias">同「积分」</span></span>
+            <span class="cmd-cmd">/points<span class="cmd-alias">同「积分」/ /cxjf</span></span>
             <div class="cmd-body">
               <strong>查询我的积分</strong>
-              <span>含当前称号与签到次数；亦可用 /cxjf</span>
+              <span>含当前称号与累计签到次数</span>
             </div>
           </div>
           <div class="cmd-item">
@@ -675,7 +669,7 @@
             <span class="cmd-cmd">/mute<span class="cmd-alias">同「下课」</span></span>
             <div class="cmd-body">
               <strong>临时关闭群发言</strong>
-              <span>夜间模式下可用全员禁言</span>
+              <span>夜间模式开启且群在生效范围内时，群管可临时禁言至下一时段</span>
             </div>
           </div>
           <div class="cmd-item">
@@ -696,7 +690,7 @@
             <span class="cmd-cmd">/kick</span>
             <div class="cmd-body">
               <strong>踢出用户</strong>
-              <span>回复目标用户消息后使用</span>
+              <span>回复目标用户消息后使用；需加入菜单或关键词后生效</span>
               <span class="cmd-tag">可加入菜单</span>
             </div>
           </div>
@@ -704,7 +698,7 @@
             <span class="cmd-cmd">/exception</span>
             <div class="cmd-body">
               <strong>添加例外名单</strong>
-              <span>将用户加入白名单，免广告/违禁词等限制</span>
+              <span>将用户加入白名单，免拦截类限制；需加入菜单或关键词后生效</span>
               <span class="cmd-tag">可加入菜单</span>
             </div>
           </div>
@@ -712,7 +706,9 @@
 
         <p class="cmd-group-title">说明</p>
         <p style="font-size: 14px; color: var(--text-soft); line-height: 1.7;">
-          群主可在「欢迎与菜单 → 显示菜单指令」中自定义 Telegram 输入框旁的菜单项；后台「关键词回复」里以 <code>/</code> 开头的规则也会同步为快捷指令。
+          系统内置指令包括 <code>/start</code>、<code>/settings</code>、<code>/rank</code>、<code>/sign</code>、<code>/verify</code>、<code>/muteuser</code> 等；其余如 <code>/stat</code>、<code>/kick</code>、<code>/hy</code> 等可在「欢迎菜单 → 显示菜单指令」中自定义，或在「全局关键词回复」里以 <code>/</code> 开头配置。
+          键盘布局中的按钮文字须与「全局关键词回复」里已激活的关键词一致；内置 <code>[关闭]</code> 可删除键盘提示。
+          全局功能的生效范围与通用功能的「设置生效群组/频道」相互独立。
           群内 @机器人 时指令名后需带机器人用户名，如 <code>/rank@YourBot</code>。
         </p>
       </div>
@@ -720,10 +716,10 @@
 
     <section id="global" class="features-section">
       <div class="section-title" id="features">
-        <h2>全群通用功能</h2>
-        <p>在「后台设置 → 全群通用」中配置，可一次作用于您选择的全部或部分群组、频道。</p>
+        <h2>全局功能</h2>
+        <p>在「后台设置 → 全局功能」中配置；上方「全部/指定群组」仅对下列功能生效，与通用功能的群绑定无关。</p>
         <div class="badge-row">
-          <span class="badge badge-global">7 项功能</span>
+          <span class="badge badge-global">8 项功能</span>
         </div>
       </div>
       <div class="feature-grid">
@@ -743,35 +739,55 @@
             <div class="feature-icon">✅</div>
             <h3>验证群组</h3>
           </div>
-          <p>登记官方真群名单，成员在群内发送「验群」即可查询当前群是否正规。</p>
+          <p>维护真群 ID 名单，成员在生效群内发送「验群」或 <code>/verify</code> 可查询本群真伪，并返回自定义真/假群提示。</p>
         </article>
         <article class="feature-card global" data-keywords="验客服 客服真假">
           <div class="feature-top">
             <div class="feature-icon">🛡️</div>
             <h3>验证客服</h3>
           </div>
-          <p>维护官方客服名单，转发一条用户消息给机器人，即可判断是否为真客服。</p>
+          <p>维护官方客服用户 ID 名单；向机器人私信或群内转发一条用户消息，即可判断是否为真客服。</p>
         </article>
         <article class="feature-card global" data-keywords="欢迎 开始 菜单">
           <div class="feature-top">
             <div class="feature-icon">🏠</div>
-            <h3>欢迎与菜单</h3>
+            <h3>欢迎菜单</h3>
           </div>
-          <p>自定义用户点「开始」时看到的介绍、图片与按钮；可控制菜单里显示的快捷指令。</p>
+          <p>自定义私信 <code>/start</code> 欢迎语、媒体与按钮；可配置 Telegram 侧菜单指令、邀请进群提示。</p>
+          <ul>
+            <li>可关闭开始指令或隐藏菜单（仍可用 <code>/cd</code> 等）</li>
+          </ul>
+        </article>
+        <article class="feature-card global" data-keywords="全局关键词 调用 快捷指令 菜单">
+          <div class="feature-top">
+            <div class="feature-icon">💬</div>
+            <h3>全局关键词回复</h3>
+          </div>
+          <p>用户发送关键词或点击键盘按钮时，自动回复预设文案、媒体与按钮；全群通用，无需为每个群单独绑定。</p>
+          <ul>
+            <li>与档案内「关键词回复」相互独立</li>
+            <li>支持模糊匹配、/ 开头快捷指令与私信/群组生效范围</li>
+            <li>内置 <code>[关闭]</code> 可删除键盘提示消息</li>
+          </ul>
         </article>
         <article class="feature-card global" data-keywords="键盘 底部按钮">
           <div class="feature-top">
             <div class="feature-icon">⌨️</div>
             <h3>键盘按钮</h3>
           </div>
-          <p>在私信或群聊底部显示自定义按钮，一点即可触发您预设的自动回复。</p>
+          <p>在私信（可选群组）底部显示自定义键盘，点击按钮触发「全局关键词回复」中同名关键词。</p>
+          <ul>
+            <li>须先在「全局关键词回复」添加并激活关键词，再配置布局</li>
+            <li>支持自动调整大小、自动隐藏与群组键盘推送</li>
+            <li>群组激活时只保留最后一条键盘提示</li>
+          </ul>
         </article>
         <article class="feature-card global" data-keywords="群发 群组 频道">
           <div class="feature-top">
             <div class="feature-icon">📢</div>
             <h3>群发群组</h3>
           </div>
-          <p>向多个群或频道一次性发送通知，支持定时每天推送、图文与按钮。</p>
+          <p>向生效范围内的群/频道手动或每日定时群发消息，支持图文与按钮（非信息同步）。</p>
         </article>
         <article class="feature-card global" data-keywords="群发 用户 广播">
           <div class="feature-top">
@@ -785,40 +801,40 @@
 
     <section id="profile">
       <div class="section-title">
-        <h2>分组设置功能</h2>
-        <p>适合不同社群单独运营：每套方案绑定自己的群，互不影响。在「后台设置 → 分组设置」中创建并绑定群组。</p>
+        <h2>通用功能</h2>
+        <p>在「后台设置 → 通用功能」中配置；每套方案通过「设置生效群组/频道」绑定群后生效，与全局功能互不影响。可创建多份设置分别管理不同社群。</p>
         <div class="badge-row">
-          <span class="badge badge-profile">22 项功能</span>
+          <span class="badge badge-profile">23 项功能</span>
         </div>
       </div>
       <div class="feature-grid">
         <article class="feature-card profile" data-keywords="抽奖 开奖">
           <div class="feature-top"><div class="feature-icon">🎁</div><h3>发起抽奖</h3></div>
-          <p>在群内发布抽奖，人满自动开奖，可设关注频道、积分、口令、发言次数等参与条件。</p>
+          <p>在本设置内创建并发布抽奖，支持满员或定时开奖（先到先开），可设关注频道、积分、口令、发言次数等条件。</p>
         </article>
         <article class="feature-card profile" data-keywords="进群验证 表情 频道">
           <div class="feature-top"><div class="feature-icon">🔐</div><h3>进群验证</h3></div>
-          <p>新人入群先验证：点选正确表情，或关注指定频道后才能发言。</p>
+          <p>绑定群新人须验证后发言：表情验证（60 秒内点对、错 2 次）或频道关注二选一；可设「发言才禁言」、自定义文案与验证消息自毁。</p>
         </article>
         <article class="feature-card profile" data-keywords="欢迎语 入群">
           <div class="feature-top"><div class="feature-icon">👋</div><h3>进群欢迎</h3></div>
           <p>新成员加入时自动发送欢迎图文，可设自动删除时间。</p>
         </article>
         <article class="feature-card profile" data-keywords="签到 积分">
-          <div class="feature-top"><div class="feature-icon">✅</div><h3>签到积分</h3></div>
-          <p>每日签到得积分，支持积分榜展示，管理员可手动加减分。</p>
+          <div class="feature-top"><div class="feature-icon">✅</div><h3>签到功能</h3></div>
+          <p>群成员发送「签到」或 <code>/sign</code> 获得积分；积分与称号系统共用，支持积分榜与手动加减分。</p>
         </article>
         <article class="feature-card profile" data-keywords="称号 等级">
           <div class="feature-top"><div class="feature-icon">🏅</div><h3>称号系统</h3></div>
-          <p>发言累计积分升级称号，达标可在群内发送升级祝贺。</p>
+          <p>发言与签到共用积分，自定义等级称号，达标可在群内发送升级祝贺。</p>
         </article>
         <article class="feature-card profile" data-keywords="统计 进退群 发言">
-          <div class="feature-top"><div class="feature-icon">📊</div><h3>数据统计</h3></div>
-          <p>记录每日进退群、发言量，群内可查发言排行榜。</p>
+          <div class="feature-top"><div class="feature-icon">📊</div><h3>统计功能</h3></div>
+          <p>在本设置已绑定的群内统计进退群、每日发言量；开启排行榜后群内可用 <code>/rank</code> 查询。</p>
         </article>
         <article class="feature-card profile" data-keywords="夜间 禁言 上课 下课">
           <div class="feature-top"><div class="feature-icon">🌙</div><h3>夜间模式</h3></div>
-          <p>设定允许发言时段，其余时间自动限制；管理员可临时「上课」「下课」。</p>
+          <p>设定「允许发言时段」，时段外按配置限制发言；群管可用「上课」「下课」或 <code>/mute</code>、<code>/unmute</code> 临时操作。</p>
         </article>
         <article class="feature-card profile" data-keywords="昵称 改名 提醒">
           <div class="feature-top"><div class="feature-icon">🔔</div><h3>修改提醒</h3></div>
@@ -826,11 +842,11 @@
         </article>
         <article class="feature-card profile" data-keywords="垃圾 广告 链接 刷屏">
           <div class="feature-top"><div class="feature-icon">🚫</div><h3>屏蔽垃圾</h3></div>
-          <p>自动拦截链接、转发、马甲发言、重复刷屏、外文、过长内容等，可警告或踢人。</p>
+          <p>拦截链接、转发、频道身份发言、重复刷屏、外文、过长消息/昵称、过多行数等，可警告或踢人。</p>
         </article>
         <article class="feature-card profile" data-keywords="违禁词 敏感词">
-          <div class="feature-top"><div class="feature-icon">📛</div><h3>违禁词过滤</h3></div>
-          <p>自定义敏感词库，命中后删除消息或按规则警告、禁言、移出群组。</p>
+          <div class="feature-top"><div class="feature-icon">📛</div><h3>禁违规词</h3></div>
+          <p>自定义违禁词库，消息或昵称命中后删除、警告，或累计后禁言、移出群组。</p>
         </article>
         <article class="feature-card profile" data-keywords="自动删除 系统消息">
           <div class="feature-top"><div class="feature-icon">🧹</div><h3>自动删除</h3></div>
@@ -838,31 +854,34 @@
         </article>
         <article class="feature-card profile" data-keywords="禁止 图片 视频 语音">
           <div class="feature-top"><div class="feature-icon">⛔</div><h3>禁止行为</h3></div>
-          <p>禁止发图、视频、语音、会员表情、改消息、英文昵称、引用广告等。</p>
+          <p>禁止图片、视频、语音、会员表情、编辑消息、英文昵称、引用跨群消息、分享联系人、内联/游戏消息等指定行为。</p>
         </article>
         <article class="feature-card profile" data-keywords="用户名 邀请 门槛">
-          <div class="feature-top"><div class="feature-icon">💪</div><h3>入群门槛</h3></div>
-          <p>要求设置用户名才能发言；或需邀请足够好友入群后才可发言。</p>
+          <div class="feature-top"><div class="feature-icon">💪</div><h3>强制措施</h3></div>
+          <p>要求设置 @用户名后再发言；或要求新成员邀请足够人数入群后才可发言。</p>
         </article>
         <article class="feature-card profile" data-keywords="骗子 黑名单">
           <div class="feature-top"><div class="feature-icon">⚠️</div><h3>骗子预警</h3></div>
-          <p>登记骗子账号，其在群内发言时自动警告或处理。</p>
+          <p>登记骗子用户 ID，其在生效群内发言时按规则警告或处理（仅支持用户 ID）。</p>
         </article>
         <article class="feature-card profile" data-keywords="按钮 推广">
           <div class="feature-top"><div class="feature-icon">🔗</div><h3>自动按钮</h3></div>
-          <p>指定成员发言或频道新帖自动带上推广按钮，也可手动给某条消息加按钮。</p>
+          <p>名单内用户（控制者）发言或频道新帖自动附带预设按钮；也可回复消息发送 <code>/add</code> 手动添加。</p>
         </article>
         <article class="feature-card profile" data-keywords="关键词 自动回复">
           <div class="feature-top"><div class="feature-icon">💬</div><h3>关键词回复</h3></div>
-          <p>用户发送关键词即回复图文与按钮，支持模糊匹配与仅管理员触发。</p>
+          <p>仅在绑定本方案的群/频道内生效；用户发送关键词即回复图文与按钮，支持模糊匹配与仅管理员触发。</p>
+          <ul>
+            <li>与全群通用的「全局关键词回复」词库相互独立</li>
+          </ul>
         </article>
         <article class="feature-card profile" data-keywords="空闲 广告位">
           <div class="feature-top"><div class="feature-icon">📣</div><h3>空闲广告</h3></div>
-          <p>群聊安静一段时间后自动发一条广告或群规，保持信息在底部展示。</p>
+          <p>群聊无人发言超过设定时间后自动发送广告（可置顶在底部展示）。</p>
         </article>
-        <article class="feature-card profile" data-keywords="发言 审查 记录">
-          <div class="feature-top"><div class="feature-icon">📝</div><h3>发言记录</h3></div>
-          <p>记录成员发言，可查看今日活跃名单与历史内容，支持禁言、移出（需群管权限）。</p>
+        <article class="feature-card profile" data-keywords="发言 审查 记录 审核">
+          <div class="feature-top"><div class="feature-icon">📝</div><h3>发言审核</h3></div>
+          <p>记录成员发言，私信查看今日活跃名单并逐条审查；禁言/踢出仍须您为该群管理员。</p>
         </article>
         <article class="feature-card profile" data-keywords="付费 发言">
           <div class="feature-top"><div class="feature-icon">💰</div><h3>付费发言</h3></div>
@@ -870,19 +889,19 @@
         </article>
         <article class="feature-card profile" data-keywords="进群禁言 转发">
           <div class="feature-top"><div class="feature-icon">⚙️</div><h3>自动执行</h3></div>
-          <p>新人进群自动禁言一段时间；频道同步内容时可去掉「转发自」来源。</p>
+          <p>新人进群自动禁言；频道内转发消息可复制后删原帖，去除「转发自」来源。</p>
         </article>
         <article class="feature-card profile" data-keywords="定时 推送">
           <div class="feature-top"><div class="feature-icon">⏰</div><h3>定时发送</h3></div>
-          <p>按间隔、每天或每月固定时间，向绑定的群/频道发送图文公告。</p>
+          <p>在本设置内配置多条任务，按间隔、每天整点或每月固定日期，向已绑定的群/频道发送图文公告。</p>
         </article>
         <article class="feature-card profile" data-keywords="同步 频道">
           <div class="feature-top"><div class="feature-icon">🔄</div><h3>信息同步</h3></div>
-          <p>监听一个源频道的新内容，自动复制或转发到多个目标群/频道。</p>
+          <p>监测指定源频道的新帖，自动同步到本设置已绑定的群组/频道。</p>
         </article>
         <article class="feature-card profile" data-keywords="白名单 例外">
-          <div class="feature-top"><div class="feature-icon">👤</div><h3>例外名单</h3></div>
-          <p>指定用户不受广告拦截、违禁词等规则限制，适合管理员与嘉宾。</p>
+          <div class="feature-top"><div class="feature-icon">👤</div><h3>设置例外名单</h3></div>
+          <p>拦截类功能（屏蔽垃圾、禁违规词、禁止行为、骗子预警等）的白名单用户，不受上述拦截处理。</p>
         </article>
       </div>
     </section>
@@ -890,20 +909,20 @@
     <section id="more">
       <div class="section-title">
         <h2>更多能力</h2>
-        <p>在管理后台全局页面中还可使用以下工具。</p>
+        <p>以下入口分散在「全局功能」主菜单、「/sz」与「通用功能」设置页中。</p>
       </div>
       <div class="feature-grid">
-        <article class="feature-card extra" data-keywords="月租 会员">
+        <article class="feature-card extra" data-keywords="月租 会员 订阅">
           <div class="feature-top"><div class="feature-icon">💳</div><h3>开通月租</h3></div>
-          <p>为机器人开通或续费服务套餐，解锁完整管理能力。</p>
+          <p>在「全局功能」主菜单或 <code>/sz</code> 中为机器人开通/续费套餐，去除广告尾巴并解锁完整能力。</p>
         </article>
-        <article class="feature-card extra" data-keywords="记录 日志">
-          <div class="feature-top"><div class="feature-icon">📋</div><h3>管理记录</h3></div>
-          <p>查看机器人近期的删消息、禁言、踢人等操作记录，便于追溯。</p>
+        <article class="feature-card extra" data-keywords="记录 日志 禁言 踢出">
+          <div class="feature-top"><div class="feature-icon">📋</div><h3>禁言踢出记录</h3></div>
+          <p>在「通用功能」设置页查看近 100 条禁言/踢出记录，可按群组筛选，覆盖各功能模块与群管指令。</p>
         </article>
-        <article class="feature-card extra" data-keywords="权限 管理员">
-          <div class="feature-top"><div class="feature-icon">🔐</div><h3>使用权限</h3></div>
-          <p>设置哪些用户可以打开后台、修改机器人设置，防止误操作。</p>
+        <article class="feature-card extra" data-keywords="权限 管理员 ACL 名单">
+          <div class="feature-top"><div class="feature-icon">🔐</div><h3>允许使用机器人名单</h3></div>
+          <p>在「全局功能」主菜单设置哪些用户可打开后台；<code>/sz</code> 可切换是否允许所有人使用「通用功能」。</p>
         </article>
       </div>
     </section>
