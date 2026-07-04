@@ -401,6 +401,38 @@
 
     .update-card li strong { color: var(--text); font-weight: 600; }
 
+    .update-categories {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .update-cat ul {
+      margin: 0;
+      padding-left: 1.15em;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .update-cat li + li { margin-top: 6px; }
+
+    .update-cat li strong { color: var(--text); font-weight: 600; }
+
+    .update-cat-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .update-cat-label.new { background: #dcfce7; color: #15803d; }
+    .update-cat-label.fix { background: #fee2e2; color: #b91c1c; }
+    .update-cat-label.opt { background: #e0f2fe; color: #0369a1; }
+
     /* 指令 */
     .cmd-section {
       background: var(--surface);
@@ -743,17 +775,38 @@
     <section id="updates">
       <div class="section-title">
         <h2>最近更新</h2>
-        <p>以下为近期上线或优化的能力，完整功能说明见下方各板块。</p>
+        <p>按新功能、修复、优化分类汇总近期变更；完整说明见下方各板块。</p>
       </div>
       <div class="updates-list">
-        <article class="update-card" data-keywords="功能介绍 最近更新">
+        <article class="update-card" data-keywords="置顶管理 创建群发 按钮 会员表情 颜色 预览 上次设置 最近更新">
           <div class="update-meta">
             <time class="update-date" datetime="2026-07-04">2026-07-04</time>
             <span class="update-badge">最新</span>
           </div>
-          <ul>
-            <li><strong>功能介绍页</strong>：新增本「最近更新」板块，后续重要变更会在此汇总。</li>
-          </ul>
+          <div class="update-categories">
+            <div class="update-cat">
+              <span class="update-cat-label new">新功能</span>
+              <ul>
+                <li><strong>置顶管理</strong>（通用功能）：创建多条置顶任务，向本方案绑定的群组/频道发送消息并置顶；支持文案、媒体、按钮与东八区日期时间自动取消置顶。</li>
+                <li><strong>创建群发</strong>（通用功能）：保存多条群发模板，可预览后一键发送到当前方案绑定的群组/频道，可选发送后自动置顶。</li>
+              </ul>
+            </div>
+            <div class="update-cat">
+              <span class="update-cat-label fix">修复</span>
+              <ul>
+                <li><strong>置顶管理</strong>：各设置项输入页正确显示「上次设置」；预览文案乱码已修复；预览成功时不再额外发送「已发送预览」提示消息。</li>
+                <li><strong>按钮设置</strong>：含会员表情的按钮不再同时显示占位普通表情与会员表情。</li>
+              </ul>
+            </div>
+            <div class="update-cat">
+              <span class="update-cat-label opt">优化</span>
+              <ul>
+                <li><strong>按钮</strong>（内联按钮与键盘布局）：标题前可加 <code>[红]</code> / <code>[绿]</code> / <code>[蓝]</code> 设置颜色；直接发送含会员表情的标题可自动识别。</li>
+                <li><strong>置顶管理</strong>：自动取消置顶改为东八区绝对时间（如 <code>2026-07-04 13:30</code>），替代原先相对秒数。</li>
+                <li><strong>功能介绍页</strong>：「最近更新」按新功能、修复、优化分类展示。</li>
+              </ul>
+            </div>
+          </div>
         </article>
         <article class="update-card" data-keywords="双向客服 私聊 客服 人机验证 拉黑">
           <div class="update-meta">
