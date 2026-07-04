@@ -23,6 +23,8 @@
       --global: #0ea5e9;
       --profile: #10b981;
       --gold: #f59e0b;
+      --update: #8b5cf6;
+      --update-light: #ede9fe;
       --shadow: 0 2px 16px rgba(26, 43, 60, 0.07);
       --shadow-hover: 0 8px 28px rgba(0, 136, 204, 0.14);
       --radius: 14px;
@@ -338,6 +340,67 @@
       line-height: 1.6;
     }
 
+    /* 最近更新 */
+    .updates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .update-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--update);
+    }
+
+    .update-card:first-child {
+      border-left-color: var(--gold);
+      background: linear-gradient(135deg, #fffbeb 0%, var(--surface) 42%);
+    }
+
+    .update-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .update-date {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-dark);
+      letter-spacing: 0.02em;
+    }
+
+    .update-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--update-light);
+      color: #6d28d9;
+    }
+
+    .update-card:first-child .update-badge {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .update-card ul {
+      margin: 0;
+      padding-left: 1.15em;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .update-card li + li { margin-top: 6px; }
+
+    .update-card li strong { color: var(--text); font-weight: 600; }
+
     /* 指令 */
     .cmd-section {
       background: var(--surface);
@@ -448,6 +511,7 @@
     }
 
     .feature-card.hidden { display: none; }
+    .update-card.hidden { display: none; }
 
     .feature-top {
       display: flex;
@@ -653,6 +717,7 @@
       <p class="lead">帮您在 Telegram 群组与频道里自动迎宾、防广告、做活动、统计发言——私信机器人发送「后台设置」即可配置，无需技术背景。</p>
       <div class="hero-btns">
         <a class="primary" href="#start">快速上手</a>
+        <a class="ghost" href="#updates">最近更新</a>
         <a class="ghost" href="#features">浏览全部功能</a>
       </div>
     </header>
@@ -660,6 +725,7 @@
     <div class="nav-sticky">
       <nav aria-label="页面导航">
         <div class="inner">
+          <a href="#updates">最近更新</a>
           <a href="#start">快速上手</a>
           <a href="#commands">常用指令</a>
           <a href="#global">全局功能</a>
@@ -670,9 +736,49 @@
     </div>
 
     <div class="search-wrap">
-      <input type="search" id="search" placeholder="搜索功能，例如：全局关键词、签到、抽奖…" autocomplete="off" />
-      <p class="empty-hint" id="search-empty">未找到匹配的功能，请换个关键词试试</p>
+      <input type="search" id="search" placeholder="搜索功能或更新，例如：界面编号、双向客服、签到…" autocomplete="off" />
+      <p class="empty-hint" id="search-empty">未找到匹配的内容，请换个关键词试试</p>
     </div>
+
+    <section id="updates">
+      <div class="section-title">
+        <h2>最近更新</h2>
+        <p>以下为近期上线或优化的能力，完整功能说明见下方各板块。</p>
+      </div>
+      <div class="updates-list">
+        <article class="update-card" data-keywords="界面编号 超管 沟通 #1 #2 后台设置">
+          <div class="update-meta">
+            <time class="update-date" datetime="2026-07-04">2026-07-04</time>
+            <span class="update-badge">最新</span>
+          </div>
+          <ul>
+            <li><strong>私信界面编号</strong>：超级管理员打开「后台设置」「/sz」「/ht」、开通月租等私信界面时，消息开头会显示 <code>#1</code>、<code>#2</code>… 便于沟通定位要改的功能；普通用户界面不显示编号。</li>
+            <li><strong>功能介绍页</strong>：新增本「最近更新」板块，后续重要变更会在此汇总。</li>
+          </ul>
+        </article>
+        <article class="update-card" data-keywords="双向客服 私聊 客服 人机验证 拉黑">
+          <div class="update-meta">
+            <time class="update-date" datetime="2026-06-20">2026-06-20</time>
+            <span class="update-badge">全局功能</span>
+          </div>
+          <ul>
+            <li><strong>双向客服</strong>：用户私聊机器人即可与客服双向沟通；支持默认回复、人机验证、对话列表与拉黑管理。</li>
+            <li><strong>验证群组 / 验证客服</strong>：可维护官方群、客服账号列表，转发消息即可快速验证是否有效。</li>
+          </ul>
+        </article>
+        <article class="update-card" data-keywords="多份设置 批量导入 档案 绑定群组 禁言踢出记录">
+          <div class="update-meta">
+            <time class="update-date" datetime="2026-06-01">2026-06-01</time>
+            <span class="update-badge">通用功能</span>
+          </div>
+          <ul>
+            <li><strong>管理多份设置</strong>：通用功能支持创建多套方案、复制与协助管理；可批量导入群组/频道 ID 绑定生效范围。</li>
+            <li><strong>禁言踢出记录</strong>：在通用功能设置页查看近 100 条禁言/踢出记录，可按群组筛选。</li>
+            <li><strong>功能介绍页</strong>：优化 Telegram 小程序内移动端排版与导航体验。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
     <section id="start">
       <div class="section-title">
@@ -1122,7 +1228,7 @@
       }
 
       var input = document.getElementById("search");
-      var cards = document.querySelectorAll(".feature-card");
+      var cards = document.querySelectorAll(".feature-card, .update-card");
       var emptyHint = document.getElementById("search-empty");
 
       input.addEventListener("input", function () {
@@ -1134,6 +1240,17 @@
           card.classList.toggle("hidden", !show);
           if (show) visible++;
         });
+        var sections = document.querySelectorAll("#updates, #global, #profile, #more");
+        if (q.length > 0) {
+          sections.forEach(function (sec) {
+            var secCards = sec.querySelectorAll(".feature-card, .update-card");
+            var any = false;
+            secCards.forEach(function (c) { if (!c.classList.contains("hidden")) any = true; });
+            sec.style.display = any ? "" : "none";
+          });
+        } else {
+          sections.forEach(function (sec) { sec.style.display = ""; });
+        }
         emptyHint.classList.toggle("show", q.length > 0 && visible === 0);
       });
 

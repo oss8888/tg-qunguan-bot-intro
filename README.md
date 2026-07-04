@@ -29,6 +29,8 @@ git push -u origin main
 ```powershell
 Copy-Item -Force "..\功能介绍.html" ".\index.html"
 git add index.html
-git commit -m "更新功能介绍页"
+git commit -m "更新功能介绍页：最近更新板块"
 git push
 ```
+
+或直接运行 `./publish.ps1` 自动复制并推送。
